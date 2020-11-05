@@ -44,22 +44,27 @@ const useStyles = makeStyles({
     },
 });
 
+interface RouteProps {
+    history: H.History;
+    location: H.Location;
+    match: match<{ contentId: string }>;
+}
+
 interface SigninProps {
     setPage: React.Dispatch<React.SetStateAction<"signin" | "signup">>
     history: H.History;
 }
 
-const SigninView: React.FC<SigninProps> = (props) => {
+export const SigninView: React.FC<RouteProps> = (props) => {
     const { history } = props;
     const classes = useStyles();
-    const { setPage } = props
 
     const login = () => {
         history.push("/userhome")
     }
 
     const toSignupPage = () => {
-        setPage('signup')
+        history.push("/signup")
     }
 
     return (
@@ -85,8 +90,7 @@ interface SignupProps {
     history: H.History;
 }
 
-const SignupView: React.FC<SignupProps> = (props) => {
-    const { setPage } = props
+export const SignupView: React.FC<RouteProps> = (props) => {
     const { history } = props;
     const classes = useStyles();
 
@@ -95,7 +99,7 @@ const SignupView: React.FC<SignupProps> = (props) => {
     }
 
     const toSigninPage = () => {
-        setPage('signin')
+        history.push("/signin")
     }
 
     return (
@@ -118,26 +122,4 @@ const SignupView: React.FC<SignupProps> = (props) => {
     )
 }
 
-interface RouteProps {
-    history: H.History;
-    location: H.Location;
-    match: match<{ contentId: string }>;
-}
 
-interface Props {
-    //content: Content
-}
-
-
-const SignView: React.FC<RouteProps> = (props) => {
-    const { history } = props;
-    const [page, setPage] = useState<'signin' | 'signup'>('signin')
-    console.log("debug")
-    return (
-        <div>
-            {page === 'signin' ? <SigninView setPage={setPage} history={history} /> : <SignupView setPage={setPage} history={history} />}
-        </div>
-    );
-}
-
-export default SignView;

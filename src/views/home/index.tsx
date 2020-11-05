@@ -66,7 +66,7 @@ const HeaderTitle: React.FC<HeaderTitleProps> = (props) => {
     const classes = useStyles();
 
     const clickUseButton = () => {
-        history.push("/sign")
+        history.push("/signup")
     }
 
     return (

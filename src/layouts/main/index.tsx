@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Button, Drawer, IconButton, InputBase, List, ListItem, ListItemText, ListItemIcon, Divider } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, Drawer, IconButton, InputBase, List, ListItem, ListItemText, ListItemIcon, Divider } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
 import Badge from '@material-ui/core/Badge';
@@ -8,14 +8,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-
-const drawerWidth = 260;
-
-interface Props {
-    className?: string;
-    children?: any;
-    title: string
-}
+import { withRouter, match } from "react-router";
+import * as H from "history";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -131,12 +125,45 @@ const MainDrawer: React.FC<DrawerProps> = (props) => {
 }
 
 interface AppBarProps {
+    history: H.History;
 }
 
 const MainAppBar: React.FC<AppBarProps> = (props) => {
     const classes = useStyles();
+    const { history } = props;
 
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
+
+    const toMyPage = () => {
+        setOpenMenu(false)
+        history.push("/mypage")
+    }
+    const toSettings = () => {
+        setOpenMenu(false)
+        history.push("/settings")
+    }
+    const logout = () => {
+        setOpenMenu(false)
+        history.push("/")
+    }
+
+    const renderMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            keepMounted
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={openMenu}
+            onClose={() => setOpenMenu(false)}
+        >
+            <MenuItem onClick={toMyPage}>MyPage</MenuItem>
+            <MenuItem onClick={toSettings}>Settings</MenuItem>
+            <MenuItem onClick={logout}>Logout</MenuItem>
+        </Menu>
+    );
 
     return (
         <div className={classes.grow}>
@@ -185,26 +212,39 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
                             edge="end"
                             aria-label="account of current user"
                             color="default"
+                            onClick={(event: any) => { setAnchorEl(event.currentTarget); setOpenMenu(true) }}
                         >
                             <AccountCircle />
                         </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
+            {renderMenu}
         </div>
     );
 }
 
-const MainLayout: React.FC<Props> = props => {
-    const { children, title } = props;
+interface Props {
+    className?: string;
+    children?: any;
+    title: string
+}
+interface RouteProps {
+    history: H.History;
+    location: H.Location;
+    match: match<{ contentId: string }>;
+}
 
+
+const MainLayout: React.FC<Props & RouteProps> = (props) => {
+    const { children, history } = props;
 
     return (
         <div>
-            <MainAppBar />
+            <MainAppBar history={history} />
             {children}
         </div>
     );
 };
 
-export default MainLayout;
+export default withRouter(MainLayout);

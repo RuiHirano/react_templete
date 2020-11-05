@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
+import { withRouter, match } from "react-router";
+import * as H from "history";
 
 interface Props {
     path: string;
@@ -9,8 +11,23 @@ interface Props {
     layout: any;
 }
 
-const RouteWithLayout: React.FC<Props> = props => {
-    const { layout: Layout, component: Component, auth, ...rest } = props;
+interface RouteProps {
+    history: H.History;
+    location: H.Location;
+    match: match;
+}
+
+const RouteWithLayout: React.FC<Props & RouteProps> = props => {
+    const { layout: Layout, component: Component, auth, history, ...rest } = props;
+
+
+
+    if (auth) {
+        const user = null
+        if (user == null) {
+            //history.push("/signin");
+        }
+    }
 
     return (
         <Route
@@ -26,4 +43,4 @@ const RouteWithLayout: React.FC<Props> = props => {
     );
 };
 
-export default RouteWithLayout;
+export default withRouter(RouteWithLayout);

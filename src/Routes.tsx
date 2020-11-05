@@ -5,7 +5,10 @@ import RouteWithLayout from "./layouts/route_with_layout";
 import {
     ContentView,
     HomeView,
-    SignView,
+    MyPageView,
+    SettingsView,
+    SigninView,
+    SignupView,
     UserHomeView,
 } from "./views";
 
@@ -20,10 +23,16 @@ const Routes: React.FC = () => {
                 path="/"
             />
             <RouteWithLayout
-                component={SignView}
+                component={SigninView}
                 exact
                 layout={HomeLayout}
-                path="/sign"
+                path="/signin"
+            />
+            <RouteWithLayout
+                component={SignupView}
+                exact
+                layout={HomeLayout}
+                path="/signup"
             />
             <RouteWithLayout
                 component={UserHomeView}
@@ -31,6 +40,20 @@ const Routes: React.FC = () => {
                 auth
                 layout={MainLayout}
                 path="/userhome"
+            />
+            <RouteWithLayout
+                component={SettingsView}
+                exact
+                auth
+                layout={MainLayout}
+                path="/settings"
+            />
+            <RouteWithLayout
+                component={MyPageView}
+                exact
+                auth
+                layout={MainLayout}
+                path="/mypage"
             />
             <RouteWithLayout
                 component={ContentView}

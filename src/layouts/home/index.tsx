@@ -34,7 +34,7 @@ const HomeAppBar: React.FC<HomeAppBarProps> = (props) => {
     const classes = useStyles();
 
     const clickUseButton = () => {
-        history.push("/sign")
+        history.push("/signin")
     }
 
     return (
