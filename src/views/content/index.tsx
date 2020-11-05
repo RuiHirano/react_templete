@@ -4,6 +4,7 @@ import { Content } from '../../types';
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import moment, { Moment } from "moment";
+import { makeStyles } from "@material-ui/core/styles";
 
 
 const mockContent: Content =
@@ -22,6 +23,19 @@ const mockContent: Content =
     TimeStamp: moment()
 }
 
+const useStyles = makeStyles({
+    root: {
+        backgroundColor: 'gainsboro',
+        height: '94vh',
+    },
+    title: {
+        textAlign: 'center'
+    },
+    paper_container: {
+        margin: 'auto',
+        width: '50%',
+    },
+});
 
 interface RouteProps {
     history: H.History;
@@ -35,25 +49,25 @@ interface Props {
 
 const ContentView: React.FC<RouteProps & Props> = (props) => {
     //const { content } = props
+    const classes = useStyles();
     const { match } = props
     const contentId = match.params.contentId
     const content = mockContent
     return (
-        <div style={{}}>
-            <div style={{ width: '100%' }}>
-                <Paper style={{ width: "50%", margin: 'auto', marginTop: 100 }}>
-                    <Typography>{content.Title}</Typography>
-                    <Typography>{"エラーメッセージ"}</Typography>
-                    <Typography>{content.Error.Message}</Typography>
-                    <Typography>{"エラーログ"}</Typography>
-                    <Typography>{content.Error.Log}</Typography>
-                    <Typography>{"実行環境"}</Typography>
-                    <Typography>{content.Environment.OS}</Typography>
-                    <Typography>{content.Environment.Language}</Typography>
-                    <Typography>{"解決方法"}</Typography>
-                    <Typography>{content.Solution}</Typography>
-                </Paper>
-            </div>
+        <div className={classes.root}>
+            <Paper className={classes.paper_container}>
+                <Typography variant={"h5"} className={classes.title}>{"Content"}</Typography>
+                <Typography>{content.Title}</Typography>
+                <Typography>{"エラーメッセージ"}</Typography>
+                <Typography>{content.Error.Message}</Typography>
+                <Typography>{"エラーログ"}</Typography>
+                <Typography>{content.Error.Log}</Typography>
+                <Typography>{"実行環境"}</Typography>
+                <Typography>{content.Environment.OS}</Typography>
+                <Typography>{content.Environment.Language}</Typography>
+                <Typography>{"解決方法"}</Typography>
+                <Typography>{content.Solution}</Typography>
+            </Paper>
         </div>
     );
 }

@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Typography, Button, useMediaQuery } from "@material-ui
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import * as H from "history";
+import { withRouter, match } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,8 +15,39 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        color: 'black'
+    },
+    login_button: {
+        color: 'black'
+    },
+    app_bar: {
+        backgroundColor: 'white'
     },
 }));
+
+interface HomeAppBarProps {
+    history: H.History;
+}
+
+const HomeAppBar: React.FC<HomeAppBarProps> = (props) => {
+    const { history } = props;
+    const classes = useStyles();
+
+    const clickUseButton = () => {
+        history.push("/sign")
+    }
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" className={classes.app_bar}>
+                <Toolbar>
+                    <Typography variant="h6" className={classes.title}>{"React Templete"}</Typography>
+                    <Button color="inherit" className={classes.login_button} onClick={clickUseButton}>{"Login"}</Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
+}
 
 interface Props {
     className?: string;
@@ -22,29 +55,21 @@ interface Props {
     title: string
 }
 
-const HomeAppBar: React.FC = () => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>{"React Templete"}</Typography>
-                    <Button color="inherit">{"Login"}</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+interface RouteProps {
+    history: H.History;
+    location: H.Location;
+    match: match<{ contentId: string }>;
 }
 
-const HomeLayout: React.FC<Props> = props => {
-    const { children, title } = props;
+const HomeLayout: React.FC<Props & RouteProps> = props => {
+    const { children, title, history } = props;
 
     return (
         <div>
-            <HomeAppBar />
+            <HomeAppBar history={history} />
             {children}
         </div>
     );
 };
 
-export default HomeLayout;
+export default withRouter(HomeLayout);

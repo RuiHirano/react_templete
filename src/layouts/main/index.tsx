@@ -23,14 +23,17 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        color: 'black',
     },
     title: {
         display: 'none',
+        color: 'black',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
     },
     search: {
+        color: 'black',
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -46,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     searchIcon: {
+        color: 'black',
         padding: theme.spacing(0, 2),
         height: '100%',
         position: 'absolute',
@@ -72,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
         },
+    },
+    app_bar: {
+        backgroundColor: 'white'
     },
 }));
 
@@ -135,7 +142,7 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
         <div className={classes.grow}>
 
             <MainDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
-            <AppBar position="static">
+            <AppBar position="static" className={classes.app_bar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -164,12 +171,12 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
+                        <IconButton aria-label="show 4 new mails" color="default">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                        <IconButton aria-label="show 17 new notifications" color="default">
                             <Badge badgeContent={17} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
@@ -177,7 +184,7 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
-                            color="inherit"
+                            color="default"
                         >
                             <AccountCircle />
                         </IconButton>

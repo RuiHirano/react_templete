@@ -45,7 +45,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = props => {
                     <img alt="image" src={imgPath} />
                 </Grid>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-                    <Typography >{Typography}</Typography>
+                    <Typography >{"adf"}</Typography>
                     <Typography variant="subtitle1">{text}</Typography>
                 </Grid>
             </Grid>
@@ -54,9 +54,20 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = props => {
 };
 
 interface HeaderTitleProps {
+    history: H.History;
 }
 
-const useDrawerStyles = makeStyles({
+const useStyles = makeStyles({
+    card_container: {
+        height: "80vh",
+        margin: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    text_container: {
+        width: '60%'
+    },
     app_name: {
         fontSize: 100,
         fontWeight: "bold",
@@ -66,30 +77,40 @@ const useDrawerStyles = makeStyles({
     app_description: {
         fontSize: 20,
         color: "white",
-        textAlign: 'center'
+        textAlign: 'center',
+        whiteSpace: "pre-wrap"
     },
     button_container: {
-        flex: 'display',
-        alignItems: 'center',
-        flexDirection: 'column'
+        textAlign: 'center',
+        paddingTop: 50,
     },
     button: {
+        borderRadius: 30,
+        padding: 15,
+        width: 160,
+        fontSize: 17,
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     }
 });
 
 const HeaderTitle: React.FC<HeaderTitleProps> = (props) => {
-    const classes = useDrawerStyles();
+    const { history } = props;
+    const classes = useStyles();
+
+    const clickUseButton = () => {
+        history.push("/sign")
+    }
 
     return (
         <div>
-            <CardMedia image={imgPath} style={{ height: "80vh", }}>
-                <div style={{ paddingTop: 200 }}>
+            <CardMedia image={imgPath} className={classes.card_container}>
+                <div className={classes.text_container}>
                     <Typography className={classes.app_name}>React Templete</Typography>
                     <Typography className={classes.app_description}>
-                        Reactを用いたサービス開発を支援するテンプレート。速やかにサービスを開発しリリースしたい方はぜひ使ってみてください。
+                        {"Reactを用いたサービス開発を支援するテンプレート。\n速やかにサービスを開発しリリースしたい方はぜひ使ってみてください。"}
                     </Typography>
                     <div className={classes.button_container}>
-                        <Button variant="contained" className={classes.button}>使ってみる</Button>
+                        <Button variant="contained" className={classes.button} disableElevation color={"primary"} onClick={clickUseButton}>使ってみる</Button>
                     </div>
                 </div>
             </CardMedia>
@@ -97,11 +118,12 @@ const HeaderTitle: React.FC<HeaderTitleProps> = (props) => {
     );
 };
 
+
 const HomeView: React.FC<RouteProps & Props> = (props) => {
-    const { match } = props
+    const { match, history } = props
     return (
         <div>
-            <HeaderTitle />
+            <HeaderTitle history={history} />
             <FeatureLayout
                 isRight={true}
                 title={"カレンダーで取引を\n振り返る"}
