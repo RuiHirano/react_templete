@@ -5,31 +5,46 @@ import { withRouter, match } from "react-router";
 import * as H from "history";
 import moment, { Moment } from "moment";
 
-const SigninView: React.FC = () => {
+
+interface SigninProps {
+    setPage: React.Dispatch<React.SetStateAction<"signin" | "signup">>
+}
+
+const SigninView: React.FC<SigninProps> = (props) => {
+    const { setPage } = props
 
     return (
-        <div style={{ height: "100vh", backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center' }}>
-            <Paper style={{ width: 300 }}>
-                <Typography style={{ fontSize: 30, margin: 10 }}>{"Signin"}</Typography>
+        <div style={{ width: '100%', height: '100vh', display: 'inline-block', verticalAlign: 'middle' }}>
+            <Paper style={{ width: '40%', height: '40%', margin: 'auto' }}>
+                <Typography style={{ fontSize: 30, }}>{"Signin"}</Typography>
                 <TextField label="Email" />
                 <TextField label="Password" />
-                <Button>{"ログイン"}</Button>
+                <Button variant="contained">{"ログイン"}</Button>
+                <Button onClick={() => setPage('signup')}>{"新規登録する"}</Button>
             </Paper>
         </div>
     )
 }
 
-const SignupView: React.FC = () => {
+interface SignupProps {
+    setPage: React.Dispatch<React.SetStateAction<"signin" | "signup">>
+}
+
+const SignupView: React.FC<SignupProps> = (props) => {
+    const { setPage } = props
 
     return (
-        <Paper style={{ width: '100vh', height: '100%' }}>
-            <Typography style={{ fontSize: 30, margin: 10 }}>{"Signup"}</Typography>
-            <TextField label="Username" />
-            <TextField label="Email" />
-            <TextField label="Password" />
-            <TextField label="Password(確認)" />
-            <Button>{"登録する"}</Button>
-        </Paper>
+        <div style={{ width: '100%', height: '100vh', display: 'inline-block', verticalAlign: 'middle' }}>
+            <Paper style={{ width: '40%', height: '40%', margin: 'auto' }}>
+                <Typography style={{ fontSize: 30, margin: 10 }}>{"Signup"}</Typography>
+                <TextField label="Username" />
+                <TextField label="Email" />
+                <TextField label="Password" />
+                <TextField label="Password(確認)" />
+                <Button variant="contained">{"登録する"}</Button>
+                <Button onClick={() => setPage('signin')}>{"ログインする"}</Button>
+            </Paper>
+        </div>
     )
 }
 
@@ -49,7 +64,7 @@ const SignView: React.FC<RouteProps> = () => {
     console.log("debug")
     return (
         <div style={{ backgroundColor: 'red', height: '100vh' }}>
-            {page === 'signin' ? <SigninView /> : <SignupView />}
+            {page === 'signin' ? <SigninView setPage={setPage} /> : <SignupView setPage={setPage} />}
         </div>
     );
 }
