@@ -95,7 +95,7 @@ interface Props {
 const UserHomeView: React.FC<RouteProps & Props> = (props) => {
     const { history } = props
     return (
-        <div >
+        <div style={{ backgroundColor: 'red', height: '100vh' }}>
             <Grid container spacing={0} style={{ marginTop: 30 }}>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12}></Grid>
                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>

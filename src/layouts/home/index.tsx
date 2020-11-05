@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import theme from "../../styles/theme";
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-const drawerWidth = 260;
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+}));
 
 interface Props {
     className?: string;
@@ -11,21 +22,29 @@ interface Props {
     title: string
 }
 
+const HomeAppBar: React.FC = () => {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>{"React Templete"}</Typography>
+                    <Button color="inherit">{"Login"}</Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
+}
+
 const HomeLayout: React.FC<Props> = props => {
     const { children, title } = props;
 
     return (
         <div>
-            <AppBar position="static" style={{ width: "100%" }}>
-                <Toolbar>
-                    {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-  </IconButton>*/}
-                    <Typography variant="h6">
-                        Baku
-                </Typography>
-                </Toolbar>
-            </AppBar>
+            <HomeAppBar />
             {children}
         </div>
     );
