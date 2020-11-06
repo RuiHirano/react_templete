@@ -137,9 +137,9 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-    const toMyPage = () => {
+    const toAccount = () => {
         setOpenMenu(false)
-        history.push("/mypage")
+        history.push("/account")
     }
     const toSettings = () => {
         setOpenMenu(false)
@@ -148,6 +148,9 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
     const logout = () => {
         setOpenMenu(false)
         history.push("/")
+    }
+    const toUserHome = () => {
+        history.push("/userhome")
     }
 
     const renderMenu = (
@@ -159,8 +162,7 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
             open={openMenu}
             onClose={() => setOpenMenu(false)}
         >
-            <MenuItem onClick={toMyPage}>MyPage</MenuItem>
-            <MenuItem onClick={toSettings}>Settings</MenuItem>
+            <MenuItem onClick={toAccount}>Account</MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
     );
@@ -180,9 +182,11 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        React Templete
+                    <Button onClick={toUserHome}>
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            React Templete
                     </Typography>
+                    </Button>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

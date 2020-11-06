@@ -14,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
         color: 'black'
+    },
+    blank: {
+        flexGrow: 1
     },
     login_button: {
         color: 'black'
@@ -37,11 +39,18 @@ const HomeAppBar: React.FC<HomeAppBarProps> = (props) => {
         history.push("/signin")
     }
 
+    const toHome = () => {
+        history.push("/")
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.app_bar}>
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>{"React Templete"}</Typography>
+                    <Button onClick={toHome}>
+                        <Typography variant="h6" className={classes.title}>{"React Templete"}</Typography>
+                    </Button>
+                    <div className={classes.blank}></div>
                     <Button color="inherit" className={classes.login_button} onClick={clickUseButton}>{"Login"}</Button>
                 </Toolbar>
             </AppBar>

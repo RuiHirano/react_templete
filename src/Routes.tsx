@@ -5,11 +5,12 @@ import RouteWithLayout from "./layouts/route_with_layout";
 import {
     ContentView,
     HomeView,
-    MyPageView,
+    AccountView,
     SettingsView,
     SigninView,
     SignupView,
     UserHomeView,
+    NotFoundView
 } from "./views";
 
 const Routes: React.FC = () => {
@@ -48,12 +49,13 @@ const Routes: React.FC = () => {
                 layout={MainLayout}
                 path="/settings"
             />
+            <Redirect exact from="/account" to="/account/profile" />
             <RouteWithLayout
-                component={MyPageView}
+                component={AccountView}
                 exact
                 auth
                 layout={MainLayout}
-                path="/mypage"
+                path="/account/:page"
             />
             <RouteWithLayout
                 component={ContentView}
@@ -62,7 +64,13 @@ const Routes: React.FC = () => {
                 layout={MainLayout}
                 path="/content/:contentId"
             />
-            <Redirect to="/not-found" />
+            <RouteWithLayout
+                component={NotFoundView}
+                exact
+                layout={HomeLayout}
+                path="/not_found"
+            />
+            <Redirect to="/not_found" />
         </Switch>
     );
 };
