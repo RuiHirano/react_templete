@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { Grid, Button, Typography, AppBar, Toolbar, IconButton, TextField, Drawer, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
 import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
+import { match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
 import PreferencesView from './preferences'
 import SecurityView from './security'
 import MailView from './mail'
 import ProfileView from './profile'
-import NotFoundView from '../not_found';
 
 
 const useSettingsStyles = makeStyles((theme) => ({

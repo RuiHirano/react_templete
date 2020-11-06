@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Button, Typography, AppBar, Toolbar, IconButton, TextField, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
 import InboxIcon from '@material-ui/icons/Inbox';
 import moment, { Moment } from "moment";
@@ -6,6 +6,7 @@ import { Content } from '../../types';
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
+import { UserAction, UserStore } from '../../store/user';
 
 const mockContents: Content[] = [
     {
@@ -73,6 +74,7 @@ interface ContentListViewProps {
 const ContentListView: React.FC<ContentListViewProps> = (props) => {
     const { history } = props
     const classes = useListViewStyles();
+    const { state, dispatch } = useContext(UserStore);
 
     const clickContent = (content: Content) => {
         history.push({
@@ -81,6 +83,7 @@ const ContentListView: React.FC<ContentListViewProps> = (props) => {
     }
     return (
         <div className={classes.root}>
+
             <Paper className={classes.paper_container}>
                 <Typography variant={"h5"} className={classes.title}>{"Content一覧"}</Typography>
                 <List>

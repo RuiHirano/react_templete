@@ -162,9 +162,9 @@ const MainAppBar: React.FC<AppBarProps> = (props) => {
             open={openMenu}
             onClose={() => setOpenMenu(false)}
         >
-            <MenuItem onClick={toAccount}>Account</MenuItem>
+            <MenuItem style={{ width: 150 }} onClick={toAccount}>Account</MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>
-        </Menu>
+        </Menu >
     );
 
     return (
