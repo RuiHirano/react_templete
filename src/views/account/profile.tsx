@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Typography, Avatar, TextField, CardMedia, IconButton, Paper } from "@material-ui/core";
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles, withStyles, } from "@material-ui/core/styles";
 import imgPath from "../../assets/office.jpg"
+import { UserStore } from '../../store/user';
+import { useUser } from '../../utils/util';
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from "yup";
+import { Profile } from '../../types';
 
 const CssTextField = withStyles({
     root: {
@@ -82,6 +88,14 @@ const useProfileViewStyles = makeStyles({
     },
 });
 
+const profileSchema = Yup.object().shape({
+    name: Yup.string()
+        .required("必須項目です")
+        .max(30, "30文字以下にしてください"),
+    message: Yup.string()
+        .max(200, "200文字以下にしてください")
+});
+
 interface RouteProps {
     history: H.History;
     location: H.Location;
@@ -94,6 +108,32 @@ interface Props {
 const ProfileView: React.FC<RouteProps & Props> = (props) => {
     const { history } = props
     const classes = useProfileViewStyles();
+    const user = useContext(UserStore).state.user
+    const { updateProfile } = useUser()
+
+    type FormData = {
+        name: string;
+        message: string;
+    };
+
+    const { handleSubmit, errors, control } = useForm<FormData>({
+        resolver: yupResolver(profileSchema)
+    });
+    const updateUserProfile = handleSubmit(({ name, message }) => {
+        try {
+            console.log("data: ", name, message)
+            const newProfile: Profile = JSON.parse(JSON.stringify(user.Profile))
+            newProfile.Name = name
+            newProfile.Message = message
+            updateProfile(newProfile)
+        } catch (err) {
+
+        }
+    });
+
+    const updateAvatar = () => {
+        console.log("updateAvatar")
+    }
 
     const renderProfileImage = () => (
         <div className={classes.section_container}>
@@ -102,7 +142,7 @@ const ProfileView: React.FC<RouteProps & Props> = (props) => {
                 <div className={classes.form_container}>
                     <div className={classes.text_field_container}>
                         <CardMedia image={imgPath} className={classes.header}></CardMedia>
-                        <IconButton>
+                        <IconButton onClick={updateAvatar}>
                             <Avatar className={classes.avatar} src={"https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"} />
                         </IconButton>
                     </div>
@@ -117,13 +157,29 @@ const ProfileView: React.FC<RouteProps & Props> = (props) => {
                 <div className={classes.form_container}>
                     <div className={classes.text_field_container}>
                         <Typography className={classes.text_field_title} >{"氏名"}</Typography>
-                        <CssTextField variant="outlined" className={classes.text_field} margin="dense" placeholder="氏名" value="Rui Hirano" />
+                        <Controller
+                            as={<CssTextField variant="outlined" className={classes.text_field} margin="dense" placeholder="氏名" />}
+                            name="name"
+                            required
+                            helperText={errors.name ? errors.name.message : ""}
+                            error={errors.name ? true : false}
+                            control={control}
+                            defaultValue=""
+                        />
                     </div>
                     <div className={classes.text_field_container}>
                         <Typography className={classes.text_field_title} >{"紹介文"}</Typography>
-                        <CssTextField variant="outlined" className={classes.text_field} margin="dense" placeholder="紹介文" />
+                        <Controller
+                            as={<CssTextField variant="outlined" className={classes.text_field} margin="dense" placeholder="紹介文" />}
+                            name="message"
+                            required
+                            helperText={errors.message ? errors.message.message : ""}
+                            error={errors.message ? true : false}
+                            control={control}
+                            defaultValue=""
+                        />
                     </div>
-                    <Button variant="contained" className={classes.button} >{"変更を保存"}</Button>
+                    <Button variant="contained" className={classes.button} onClick={updateUserProfile}>{"変更を保存"}</Button>
                 </div>
             </Paper>
         </div>

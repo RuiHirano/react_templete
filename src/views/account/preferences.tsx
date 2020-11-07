@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Typography, Select, FormControlLabel, Checkbox, MenuItem, Paper } from "@material-ui/core";
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
+import { useUser } from '../../utils/util';
+import { UserStore } from '../../store/user';
 
 
 const usePreferencesViewStyles = makeStyles({
@@ -67,6 +69,22 @@ interface Props {
 const PreferencesView: React.FC<RouteProps & Props> = (props) => {
     const { history } = props
     const classes = usePreferencesViewStyles();
+    const { deleteAccount, updateUser } = useUser()
+    const user = useContext(UserStore).state.user
+    const [language, setLanguage] = useState(user.Setting.Language)
+    const [notification, setNotification] = useState(user.Setting.Notification)
+
+    const updateLanguage = () => {
+        const newUser = user
+        newUser.Setting.Language = language
+        updateUser(newUser)
+    }
+
+    const updateNotification = () => {
+        const newUser = user
+        newUser.Setting.Notification = notification
+        updateUser(newUser)
+    }
 
     const renderLanguage = () => (
         <div className={classes.section_container}>
@@ -87,7 +105,7 @@ const PreferencesView: React.FC<RouteProps & Props> = (props) => {
                             <MenuItem value={"British/London"}>British/London</MenuItem>
                         </Select>
                     </div>
-                    <Button variant="contained" className={classes.button} >{"変更を保存"}</Button>
+                    <Button variant="contained" className={classes.button} onClick={updateLanguage}>{"変更を保存"}</Button>
                 </div>
             </Paper>
         </div>
@@ -109,24 +127,34 @@ const PreferencesView: React.FC<RouteProps & Props> = (props) => {
                             label="アプリ内通知"
                         />
                     </div>
-                    <Button variant="contained" className={classes.button} >{"変更を保存"}</Button>
+                    <Button variant="contained" className={classes.button} onClick={updateNotification}>{"変更を保存"}</Button>
                 </div>
             </Paper>
         </div>
     )
 
-    const renderDeleteAccount = () => (
-        <div className={classes.section_container}>
-            <Typography className={classes.sub_title}>{"アカウントの削除"}</Typography>
-            <Paper className={classes.paper_container}>
-                <div className={classes.form_container}>
+    const renderDeleteAccount = () => {
+        const deleteUserAccount = () => {
+            try {
+                deleteAccount()
+                history.push("/")
+            } catch (err) {
 
-                    <Typography >{"アカウントを削除すると、react templeteアカウントを使用したサービスへアクセスできなくなり、個人データが完全に消去されます。14 日間以内であれば、削除を取り消すことが可能です。"}</Typography>
-                    <Button variant="contained" className={classes.button} >{"アカウントの削除"}</Button>
-                </div>
-            </Paper>
-        </div>
-    )
+            }
+        }
+        return (
+            <div className={classes.section_container}>
+                <Typography className={classes.sub_title}>{"アカウントの削除"}</Typography>
+                <Paper className={classes.paper_container}>
+                    <div className={classes.form_container}>
+
+                        <Typography >{"アカウントを削除すると、react templeteアカウントを使用したサービスへアクセスできなくなり、個人データが完全に消去されます。14 日間以内であれば、削除を取り消すことが可能です。"}</Typography>
+                        <Button variant="contained" className={classes.button} onClick={deleteUserAccount}>{"アカウントの削除"}</Button>
+                    </div>
+                </Paper>
+            </div>
+        )
+    }
 
     return (
         <div className={classes.root}>

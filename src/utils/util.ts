@@ -2,7 +2,7 @@ import { useCallback, useContext } from "react";
 import AmplifyAPI from "../api/amplify";
 import { UserActionType, UserStore } from "../store/user";
 import { ItemActionType, ItemStore } from "../store/item";
-import { Item, Profile, User } from "../types";
+import { Item, Profile, Setting, User } from "../types";
 
 export const useAuth = () => {
     const api = new AmplifyAPI()
@@ -102,9 +102,10 @@ export const useUser = () => {
     const api = new AmplifyAPI()
     const { state: userState, dispatch: dispatchUser } = useContext(UserStore);
     const { state: itemState, dispatch: dispatchItem } = useContext(ItemStore);
-    const updateUserProfile = useCallback(async (profile: Profile) => {
+    const updateProfile = useCallback(async (profile: Profile) => {
         try {
-            const user = new User()
+            const user = userState.user
+            user.Profile = profile
             // AmplifyにUserを更新
             await api.updateUser(user)
             // StoreのUserを更新
@@ -114,27 +115,57 @@ export const useUser = () => {
         }
     }, [])
 
-    const updateItem = useCallback(async (item: Item) => {
+    const updateUser = useCallback(async (user: User) => {
         try {
-            // Amplifyへアイテムを更新
-            await api.updateItem(item)
+            console.log("update user")
+            // AmplifyにUserを更新
+            await api.updateUser(user)
+            // StoreのUserを更新
+            dispatchUser({ type: UserActionType.UPDATE_USER, user: user })
+
+        } catch (err) {
+        }
+    }, [])
+
+    const updateAvatar = useCallback(async (path: string) => {
+        try {
+            const user = userState.user
+            user.Profile.Avatar = path
+            // AmplifyにUserを更新
+            await api.updateUser(user)
+            // StoreのUserを更新
+            dispatchUser({ type: UserActionType.UPDATE_USER, user: user })
+
+        } catch (err) {
+        }
+    }, [])
+
+    const updateEmail = useCallback(async (email: string) => {
+        try {
+            const newUser = userState.user
+            newUser.Setting.Email = email
             // Storeのアイテムを更新
-            dispatchItem({ type: ItemActionType.UPDATE_ITEM, items: [] })
+            dispatchUser({ type: UserActionType.UPDATE_USER, user: newUser })
 
         } catch (err) {
         }
     }, [])
 
-    const deleteItem = useCallback(async (item: Item) => {
+    const updatePassword = useCallback(async (password: string, newPassword: string) => {
         try {
-            // Amplifyのアイテムを削除
-            await api.deleteItem(item.ID)
-            // Storeのアイテムを削除
-            dispatchItem({ type: ItemActionType.DELETE_ITEM, items: [] })
+            console.log("update password: ", password, newPassword)
 
         } catch (err) {
         }
     }, [])
 
-    return { "updateUserProfile": updateUserProfile, "signUp": updateItem, "deleteItem": deleteItem }
+    const deleteAccount = useCallback(async () => {
+        try {
+            console.log("delete Account")
+
+        } catch (err) {
+        }
+    }, [])
+
+    return { "updateProfile": updateProfile, "updateEmail": updateEmail, "updatePassword": updatePassword, "updateUser": updateUser, "deleteAccount": deleteAccount }
 }

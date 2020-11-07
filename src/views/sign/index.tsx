@@ -122,7 +122,7 @@ export const SigninView: React.FC<RouteProps> = (props) => {
                         control={control}
                         type="password"
                         defaultValue=""
-                    />asd
+                    />
 
                     <div className={classes.button_container}>
                         <Button className={classes.button} onClick={login} variant="contained" color={'primary'}>{"ログイン"}</Button>

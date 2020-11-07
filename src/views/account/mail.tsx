@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Button, Typography, AppBar, Toolbar, IconButton, TextField, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Item } from '../../types';
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from "yup";
+import { useUser } from '../../utils/util';
+import { UserStore } from '../../store/user';
 
 
 const useMailViewStyles = makeStyles({
@@ -55,6 +57,16 @@ const useMailViewStyles = makeStyles({
     },
 });
 
+const emailSchema = Yup.object().shape({
+    email: Yup.string()
+        .email("アドレスが正しくありません")
+        .oneOf(
+            [Yup.ref("email")],
+            "メールアドレスが間違っています"
+        )
+        .required("必須項目です"),
+});
+
 interface RouteProps {
     history: H.History;
     location: H.Location;
@@ -67,19 +79,45 @@ interface Props {
 const MailView: React.FC<RouteProps & Props> = (props) => {
     const { history } = props
     const classes = useMailViewStyles();
+    const { updateEmail } = useUser()
+    const user = useContext(UserStore).state.user
+
+    type FormData = {
+        email: string;
+    };
+
+    const { handleSubmit, errors, control } = useForm<FormData>({
+        resolver: yupResolver(emailSchema)
+    });
+    const updateUserEmail = handleSubmit(({ email }) => {
+        try {
+            updateEmail(email)
+        } catch (err) {
+
+        }
+    });
+
     return (
         <div className={classes.root}>
             <Typography className={classes.title}>Mail</Typography>
-            <Typography >{"現在のメールアドレスはr.hrn@gmail.comです"}</Typography>
+            <Typography >{`現在のメールアドレスは${user.Setting.Email}です`}</Typography>
             <div className={classes.email_container}>
                 <Typography className={classes.sub_title}>{"メールアドレスを変更"}</Typography>
                 <Paper className={classes.paper_container}>
                     <div className={classes.form_container}>
                         <div className={classes.text_field_container}>
                             <Typography className={classes.text_field_title} >{"新しいメールアドレス"}</Typography>
-                            <TextField variant="outlined" className={classes.text_field} margin="dense" placeholder="新しいメールアドレス" />
+                            <Controller
+                                as={<TextField variant="outlined" className={classes.text_field} margin="dense" placeholder="新しいメールアドレス" />}
+                                name="email"
+                                required
+                                helperText={errors.email ? errors.email.message : ""}
+                                error={errors.email ? true : false}
+                                control={control}
+                                defaultValue=""
+                            />
                         </div>
-                        <Button variant="contained" className={classes.button} >{"変更を保存"}</Button>
+                        <Button variant="contained" className={classes.button} onClick={updateUserEmail}>{"変更を保存"}</Button>
                     </div>
                 </Paper>
             </div>

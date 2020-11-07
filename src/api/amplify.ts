@@ -57,6 +57,4 @@ export default class AmplifyAPI {
     async updateUser(user: User) {
 
     }
-
-
 }
