@@ -1,9 +1,6 @@
 import React from 'react';
-import { Grid, Button, Typography, AppBar, Toolbar, IconButton, TextField, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
+import { Typography } from "@material-ui/core";
+import { match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
 

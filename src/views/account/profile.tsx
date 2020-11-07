@@ -1,8 +1,5 @@
 import React from 'react';
-import { Grid, Button, Typography, Avatar, TextField, CardMedia, IconButton, Paper } from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Content } from '../../types';
+import { Button, Typography, Avatar, TextField, CardMedia, IconButton, Paper } from "@material-ui/core";
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles, withStyles, } from "@material-ui/core/styles";

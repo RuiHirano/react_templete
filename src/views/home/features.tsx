@@ -1,9 +1,5 @@
 import React from 'react';
-import { Grid, Button, Typography, AppBar, Toolbar, Paper, Avatar } from "@material-ui/core";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
-import * as H from "history";
-import moment, { Moment } from "moment";
+import { Typography, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 interface Feature {

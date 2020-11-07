@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { Grid, Button, Typography, AppBar, Toolbar, IconButton, TextField, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
+import { Grid, Typography, List, ListItem, ListItemIcon, ListItemText, Paper } from "@material-ui/core";
 import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
+import moment from "moment";
+import { Item } from '../../types';
+import { match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";
-import { UserAction, UserStore } from '../../store/user';
+import { UserStore } from '../../store/user';
 
-const mockContents: Content[] = [
+const mockItems: Item[] = [
     {
         Title: "RLLibでのfailエラー",
         Error: {
@@ -67,32 +67,32 @@ const useListViewStyles = makeStyles({
     },
 });
 
-interface ContentListViewProps {
+interface ItemListViewProps {
     history: H.History;
 }
 
-const ContentListView: React.FC<ContentListViewProps> = (props) => {
+const ItemListView: React.FC<ItemListViewProps> = (props) => {
     const { history } = props
     const classes = useListViewStyles();
     const { state, dispatch } = useContext(UserStore);
 
-    const clickContent = (content: Content) => {
+    const clickItem = (item: Item) => {
         history.push({
-            pathname: "/content/000",
+            pathname: "/item/000",
         })
     }
     return (
         <div className={classes.root}>
 
             <Paper className={classes.paper_container}>
-                <Typography variant={"h5"} className={classes.title}>{"Content一覧"}</Typography>
+                <Typography variant={"h5"} className={classes.title}>{"Item一覧"}</Typography>
                 <List>
-                    {mockContents.map((content) => (
-                        <ListItem button onClick={() => clickContent(content)}>
+                    {mockItems.map((item) => (
+                        <ListItem button onClick={() => clickItem(item)}>
                             <ListItemIcon>
                                 <InboxIcon />
                             </ListItemIcon>
-                            <ListItemText primary={content.Title} />
+                            <ListItemText primary={item.Title} />
                         </ListItem>
                     ))}
                 </List>
@@ -125,7 +125,7 @@ const UserHomeView: React.FC<RouteProps & Props> = (props) => {
             <Grid container spacing={0}>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12}></Grid>
                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                    <ContentListView history={history} />
+                    <ItemListView history={history} />
                 </Grid>
                 <Grid item xl={3} lg={3} md={3} sm={12} xs={12}></Grid>
             </Grid>

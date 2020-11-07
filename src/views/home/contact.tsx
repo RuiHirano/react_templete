@@ -1,9 +1,5 @@
 import React from 'react';
 import { Grid, Button, Typography, TextField, Divider, IconButton } from "@material-ui/core";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
-import * as H from "history";
-import moment, { Moment } from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import YoutubeIcon from '@material-ui/icons/YouTube';
 import TwitterIcon from '@material-ui/icons/Twitter';

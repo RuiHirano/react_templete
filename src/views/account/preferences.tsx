@@ -1,8 +1,5 @@
 import React from 'react';
-import { Grid, Button, Typography, Select, TextField, FormControlLabel, Checkbox, MenuItem, Paper } from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/Inbox';
-import moment, { Moment } from "moment";
-import { Content } from '../../types';
+import { Button, Typography, Select, FormControlLabel, Checkbox, MenuItem, Paper } from "@material-ui/core";
 import { withRouter, match } from "react-router";
 import * as H from "history";
 import { makeStyles } from "@material-ui/core/styles";

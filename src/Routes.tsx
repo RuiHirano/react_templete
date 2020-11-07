@@ -1,9 +1,9 @@
 import React from "react";
-import { Switch, Redirect, Route } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import { MainLayout, HomeLayout } from "./layouts";
 import RouteWithLayout from "./layouts/route_with_layout";
 import {
-    ContentView,
+    ItemView,
     HomeView,
     AccountView,
     SettingsView,
@@ -58,11 +58,11 @@ const Routes: React.FC = () => {
                 path="/account/:page"
             />
             <RouteWithLayout
-                component={ContentView}
+                component={ItemView}
                 exact
                 auth
                 layout={MainLayout}
-                path="/content/:contentId"
+                path="/item/:itemId"
             />
             <RouteWithLayout
                 component={NotFoundView}

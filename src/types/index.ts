@@ -12,7 +12,7 @@ export interface Error {
     Location: string
 }
 
-export interface Content {
+export interface Item {
     Title: string
     Error: Error
     Environment: Environment

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, Button, Typography, AppBar, Toolbar, Paper, CardMedia } from "@material-ui/core";
-import { Content } from '../../types';
-import { withRouter, match } from "react-router";
+import { Button, Typography, CardMedia } from "@material-ui/core";
+import { match } from "react-router";
 import * as H from "history";
-import moment, { Moment } from "moment";
 import imgPath from "../../assets/office.jpg"
 import { makeStyles } from "@material-ui/core/styles";
 import FeaturesView from './features';
