@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const mockItem: Item =
 {
+    ID: "test",
     Title: "Rails bootstrapエラー",
     Error: {
         Message: "raise TuneError(Trials did not complete, incomplete_trials)",

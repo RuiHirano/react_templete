@@ -5,7 +5,7 @@ import { User } from '../types';
 import { API, graphqlOperation } from "aws-amplify"
 const config = require('../../../aws-exports').config;
 Amplify.configure(config);*/
-import { User } from '../types';
+import { Item, User } from '../types';
 
 export default class AmplifyAPI {
 
@@ -39,6 +39,22 @@ export default class AmplifyAPI {
     }
 
     async createUser(user: User) {
+
+    }
+
+    async createItem(item: Item) {
+
+    }
+
+    async updateItem(item: Item) {
+
+    }
+
+    async deleteItem(itemId: string) {
+
+    }
+
+    async updateUser(user: User) {
 
     }
 

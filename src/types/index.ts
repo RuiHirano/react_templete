@@ -13,6 +13,7 @@ export interface Error {
 }
 
 export interface Item {
+    ID: string
     Title: string
     Error: Error
     Environment: Environment

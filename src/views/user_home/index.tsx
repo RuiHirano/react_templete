@@ -10,6 +10,7 @@ import { UserStore } from '../../store/user';
 
 const mockItems: Item[] = [
     {
+        ID: "test",
         Title: "RLLibでのfailエラー",
         Error: {
             Message: "raise TuneError(Trials did not complete, incomplete_trials)",
@@ -27,6 +28,7 @@ const mockItems: Item[] = [
         TimeStamp: moment()
     },
     {
+        ID: "test",
         Title: "Golang 構造体エラー",
         Error: {
             Message: "raise TuneError(Trials did not complete, incomplete_trials)",
@@ -41,6 +43,7 @@ const mockItems: Item[] = [
         TimeStamp: moment()
     },
     {
+        ID: "test",
         Title: "Rails bootstrapエラー",
         Error: {
             Message: "raise TuneError(Trials did not complete, incomplete_trials)",

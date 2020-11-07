@@ -17,7 +17,8 @@ export enum ItemActionType {
 
 type ItemAction = {
 	type: ItemActionType
-	items: Item[]
+	items?: Item[]
+	item?: Item
 }
 
 type ContextValue = {
