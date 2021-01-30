@@ -68,3 +68,74 @@ export interface Notification {
     Email: boolean,
     Push: boolean,
 }
+
+
+export interface Document {
+    title: string,
+    author: string[],
+    abstract: string,
+    contents: Chapter[] | Section[],
+    bibliographies: Bibliography[],
+    biographies: Biography[],
+    createdAt: Moment,
+}
+
+export interface Chapter {
+    index: number,
+    title: string,
+    contents: (Section | Paragraph)[],
+}
+
+export interface Section {
+    index: number,
+    title: string,
+    contents: (Subsection | Paragraph)[],
+}
+
+export interface Subsection {
+    index: number,
+    title: string,
+    paragraphs: Paragraph[],
+}
+
+export interface Paragraph {
+    sentences: Sentence[],
+    figures: Figure[],
+}
+
+export interface Sentence {
+    text: string,
+}
+
+export interface Bibliography {
+    title: string,
+    author: string,
+    year: string,
+}
+
+export interface Biography {
+    name: string,
+    description: string,
+}
+
+export interface Figure {
+    id: string
+    name: string
+    uri: string
+    size: number
+}
+
+export interface Table {
+    id: string
+    name: string
+}
+
+export interface Math {
+    id: string
+    name: string
+}
+
+export interface Lstlisting {
+    id: string
+    name: string
+}

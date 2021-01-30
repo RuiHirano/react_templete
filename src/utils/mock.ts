@@ -1,0 +1,580 @@
+import { Document } from "./../types"
+import moment from "moment"
+
+export const mockDocument: Document = {
+    title: "test",
+    author: ["Rui Hirano", "Nobuo Kawaguchi"],
+    abstract: "Cities are faced with various urban challenges such as mitigating traffic congestion, evacuation planning, and controlling the spread of infectious diseases. Multi-agent simulations are expected to be utilized to solve these problems. However, large-scale multi-agent simulations at the city level are computationally very large, making it difficult to perform them on a single computer.  Currently, there are large-scale social simulation infrastructures that utilize distributed simulation technology, but they are not readily available because they require complex environment construction such as coordination on multiple computing resources, resource management, and network configuration. In this paper, we propose a large-scale social simulation infrastructure that can be easily executed in the cloud using Kubernetes / Docker, a modern container virtualization technology, and Synerex, a new distributed system. This simulation infrastructure has not only functions related to distributed simulation, such as distributed computation by spatial partitioning and dynamic resource management, but also practicality so that users can easily use it on the cloud. We have also demonstrated the simulation of the spread of infection to 100,000 people in Nagoya City, Aichi Prefecture, on the GKE cloud service provided by Google, and have shown that the execution time can be reduced to about 1/5 by increasing the number of servers.",
+    contents: [
+        {
+            index: 0, title: "はじめに", contents: [
+                {
+                    index: 0, title: "section1", contents: [
+                        { sentences: [{ text: "sentence" }], figures: [] }
+                    ]
+                }
+            ]
+        },
+        {
+            index: 1, title: "まとめと今後の展望", contents: [
+                {
+                    index: 0, title: "section2", contents: [
+                        { sentences: [{ text: "sentence" }], figures: [] }
+                    ]
+                },
+                {
+                    index: 1, title: "section3", contents: [
+                        { sentences: [{ text: "sentence" }], figures: [] }
+                    ]
+                },
+            ]
+        }
+    ],
+    bibliographies: [],
+    biographies: [],
+    createdAt: moment(),
+}
+
+/*export const latexData = `
+%% $BOBJ8O@J8MQ$N%F%s%W%l!<%H(B
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% 1. $BOBJ8869F(B
+     \documentclass[originalpaper]{jsaiart}     % $B86CxO@J8(B Original Paper
+    % \documentclass[blindreview]{jsaiart}      % $B::FIMQ(B
+    %
+    % \documentclass[shortpaper]{jsaiart}       % $BB.JsO@J8(B Short Paper
+    % \documentclass[exploratorypaper]{jsaiart} % $BK(2jO@J8(B Exploratory Research Paper
+    % \documentclass[Specialissue]{jsaiart}     % $BFC=8(B Special Issue
+    % \documentclass[specialissue]{jsaiart}     % $B>.FC=8(B Special Issue
+    % \documentclass[interimreport]{jsaiart}    % $BJs9p(B An Interim Report
+    % \documentclass[surveypaper]{jsaiart}      % $B2r@b(B Survey Paper
+    % \documentclass[aimap]{jsaiart}            % AI$B%^%C%W(B AI map
+    % \documentclass[specialpaper]{jsaiart}     % $BFC=8O@J8(B Special Paper
+    % \documentclass[invitedpaper]{jsaiart}     % $B>7BTO@J8(B Invited Paper
+    %
+
+    %% $B%Z!<%8HV9f$N;XDj!$7G:\;~$K3X2q$NJ}$G7hDj$7$^$9!%(B
+    % \setcounter{page}{1}
+    % \setcounter{volpage}{1}
+
+
+    %%% amsmath$B%Q%C%1!<%8$NCm0UE@(B %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % \usepackpage{amsmath}
+    % $B?t<0HV9f$N;2>H$O(B \ref $B$G$O$J$/!$(B\eqref $B$rMQ$$$k$3$H(B
+    % documentclass $B$N%*%W%7%g%s$K(B fleqn$B$r;XDj$9$k$3$H(B
+    % $BNc(B: \documentclass[technicalpaper,fleqn]{jsaiart}
+    %\usepackage[dviout]{graphicx}
+    %\usepackage{epsf}
+    \usepackage[dvips]{graphicx}
+
+    \Vol{12}
+    \No{1}
+    \jtitle{クラウド親和性を有する\\大規模社会シミュレーション基盤の設計と評価}
+    \etitle{Design and Evaluation of a Large-Scale Social Simulation Infrastructure \\with Cloud Affinity}
+
+    \manyauthor % $BCx<T$,(B3$BL>0J2<$N>l9g$O$3$N9T$r>C$9$3$H(B
+
+    \author{%
+     \name{平野}{流}{Rui Hirano}
+     \affiliation{名古屋大学大学院工学研究科}%
+         {Graduate School of Engineering, Nagoya University}%
+         {ruirui@ucl.nuee.nagoya-u.ac.jp, https://ruihirano.github.io}
+    \and
+     \name{青木}{俊介}{Aoki Shunsuke}
+     \sameaffiliation{shunsuke@nagoya-u.jp}
+    \and
+     \name{米澤}{拓郎}{Takuro Yonezawa}
+     \sameaffiliation{takuro@nagoya-u.jp}
+    \and
+     \name{河口}{信夫}{Nobuo Kawaguchi}
+     \affiliation{名古屋大学大学院工学研究科, 名古屋大学未来社会創造機構}%
+         {Graduate School of Engineering, Nagoya University and Institutes of Innovation for Fu- ture Society, Nagoya University}%
+         {kawaguti@nagoya-u.jp}
+    }
+
+    \begin{keyword}
+    large-scale simulation, distributed simulation, traffic flow, multi-agent simulation, cloud computing
+    \end{keyword}
+
+    \begin{summary}
+        %都市には渋滞の緩和や避難計画の策定，感染拡大の抑制など様々な都市課題が存在する．これらの課題を解決するため，マルチエージェントシミュレーションの活用が期待されている．しかしながら，都市レベルの大規模なマルチエージェントシミュレーションは計算量が非常に大きくなるため，単一のコンピュータ上で行うのが難しい．現在，分散シミュレーション技術を活用した大規模社会シミュレーション基盤が存在するが，複数の計算資源上での連携やリソース管理，ネットワーク設定など複雑な環境構築が必要であり，容易に利用可能ではない．本論文では，モダンなコンテナ仮想化技術であるKubernetes / Dockerと新たな分散システムであるSynerexを用いて，クラウド上での実行が容易な大規模社会シミュレーション基盤を提案する．本シミュレーション基盤は，空間分割による計算量の分散や動的なリソース管理といった，分散シミュレーションに関わる機能だけでなく，利用者がクラウド上で容易に使えるような実用性も有している．また，Googleの提供するクラウドサービスGKE上で愛知県名古屋市を想定した10万人規模の感染拡大シミュレーションの実証を行い，サーバー台数を増やすことによって実行時間を約1/5程度まで短縮できることを示す．
+        Cities are faced with various urban challenges such as mitigating traffic congestion, evacuation planning, and controlling the spread of infectious diseases. Multi-agent simulations are expected to be utilized to solve these problems. However, large-scale multi-agent simulations at the city level are computationally very large, making it difficult to perform them on a single computer.  Currently, there are large-scale social simulation infrastructures that utilize distributed simulation technology, but they are not readily available because they require complex environment construction such as coordination on multiple computing resources, resource management, and network configuration.
+        In this paper, we propose a large-scale social simulation infrastructure that can be easily executed in the cloud using Kubernetes / Docker, a modern container virtualization technology, and Synerex, a new distributed system. This simulation infrastructure has not only functions related to distributed simulation, such as distributed computation by spatial partitioning and dynamic resource management, but also practicality so that users can easily use it on the cloud. We have also demonstrated the simulation of the spread of infection to 100,000 people in Nagoya City, Aichi Prefecture, on the GKE cloud service provided by Google, and have shown that the execution time can be reduced to about 1/5 by increasing the number of servers.
+    \end{summary}
+
+    \begin{document}
+    \maketitle
+
+    \section{はじめに} % 1.5p
+    %[全体背景]
+    %[都市において渋滞緩和や避難策定，感染拡大の抑制は重要である]\\
+    都市において渋滞緩和や災害時の避難誘導計画の策定，感染拡大の抑制は重要である．
+    % 例：東京オリンピック，大阪万博
+    2021年の東京オリンピックや2025年の大阪万博のような大規模なイベントでは，局所的かつ突発的な交通渋滞や人混みが頻繁に起こると予想されており，これらの問題に対する早急な対応が必要不可欠である．
+    % 例：Covid19
+    また，2019年末におきたCovid19によるパンデミックの状況では，いかに感染拡大を抑制できるかが重要な問題となっている．
+
+    %[このような都市課題を解決するために，MASによる社会シミュレーションの活用が期待されている]\\
+    このような都市課題を解決するために，マルチエージェントシミュレーション(以下，MAS)\cite{Zargayouna}による社会シミュレーションの活用が期待されている．MASとは，人や車などを模した複数のエージェントを自律的に行動させ，相互作用によって起こる現象を分析するシミュレーション技術である．MASは個々のエージェントに行動規則を持たせられるため，異なる意思をもつ人間が相互作用するような現実社会のシミュレーションに適しており，人流や交通流シミュレータなどMASを活用した様々なシミュレータが存在する．
+
+
+
+    %[研究背景]
+
+    %[MASの大規模化には計算量が莫大になるという課題があるため，計算リソースの柔軟性の高い分散シミュレーションの需要が高まっている．]
+    %%[都市レベルの大規模な社会シミュレーションにはクラウドコンピューティングが必要不可欠であり，複数の計算資源を強調させて動作させる分散シミュレーションの需要が高まっている．]
+    MASの課題として，全てのエージェントの行動を一つ一つ計算するため，大規模化に伴い計算量が莫大に増加するという課題が挙げられる．都市レベルの超大規模な社会シミュレーションを想定すると，計算リソースを単一のコンピュータに収めることは難しい．
+    そのため，大規模な社会シミュレーションの実行には，シミュレーションによって生じる計算を複数の計算資源へ分散し，お互いが協調しながら完結させる，分散シミュレーションが必要不可欠である．
+
+    %[しかしながら，既存の多くの社会シミュレーション基盤は，利用する計算資源間のネットワーク設定などが必要あり，利用が容易ではない．]
+    しかしながら，MASを利用した既存のシミュレータは分散環境における実行を想定していないものが多く，大規模化が非常に難しい．また，複数の計算資源を連携するには，OSやネットワーク，リソース容量など，計算資源に合わせたアプリケーションの配置や複雑な設定が必要であり，既存の多くの社会シミュレーション基盤は誰もが容易に利用可能な環境にはなっていない．
+
+    %[近年，クラウドコンピューティング分野や周辺技術が発達しており，複数資源間でのリソース共有を目的としたKubernetes / Dockerというコンテナ仮想化技術も現れている．また，AWSやGCPなどの既存のベンダが提供しているクラウドサービスはリソースの動的なプロビジョニングや管理をユーザに提供するIaaSである]
+    近年，クラウドコンピューティング分野やその周辺技術の発達により，実行環境による影響の抑制や複数資源間での一貫したリソース共有が可能なKubernetes / Docker \cite{Bernstein}というコンテナ仮想化技術が現れた．Kubernetes / Dockerは複数の計算資源の管理や動的なプロビジョニングをユーザーに提供する．AmazonやGoogleなどの大手ベンダーもEKS(Elastic Kubernetes Service)やGKE(Google Kubernetes Engine)を提供し，サポートしている．
+
+
+    %[研究目的]
+    %[Kubernetes,DockerとSynerexを用いてAWSやGCPのクラウドサービス上で動作実行が容易な大規模社会シミュレーション基盤を提案する．また，本基盤を用いて，日本全国を想定した簡易的な感染拡大シミュレーションを実行し，実行できることを確認した]
+
+    % [ビジョン？]
+    %[我々はMASを利用した既存のシミュレータを連携させ，実世界のデータを用いながら大規模な社会シミュレーションが行えるようなシミュレーション基盤の実現を目指している．]
+    % []
+    我々は人流や交通流，災害などを対象とした既存のシミュレータを基盤上に載せることで今まで困難だった大規模化を可能にし，複雑な環境構築を必要とせずに都市レベルの大規模な社会シミュレーションを行えるようなシミュレーション基盤の実現を目指している．
+
+    % [特色をもっと書く]  % by aoki
+    本研究では，モダンなコンテナ仮想化技術であるKubernetes / Dockerと新たな分散システムであるSynerex\cite{Kawaguchi}を用いて，EKSやGKEなどクラウド上での実行が容易な大規模社会シミュレーション基盤を提案する．本シミュレーション基盤は，空間分割による計算量の分散や動的なリソース管理といった，分散シミュレーションに関わる機能だけでなく，利用者がクラウド上で容易に使えるような実用性も有している．また，愛知県名古屋市を想定した10万人規模の感染拡大シミュレーションの動作実証を行い，本基盤を用いたクラウド上での社会シミュレーションの有効性を示した．
+
+    % [本研究の貢献]  % by aoki
+    本研究による貢献は次の3つである．
+    \begin{enumerate}
+        % 動的拡張:　シミュレーションとして大規模に可能
+        \item 複数の計算資源を動的に拡張可能な大規模社会シミュレーション基盤を設計・構築したこと
+        %\item いままで分散できなかったシミュレータもこの上に載せると分散して動かせる点
+        % クラウド親和性：
+        \item モダンなコンテナオーケストレーションツールであるKubernetesを用いて，クラウド上で複数の計算資源を柔軟に連携させたシミュレーション実行が可能となる仕組みを有していること
+        % 10万規模の社会シミュレーションが可能であることを証明したこと
+        \item 既存のクラウドサービスを通して，10万規模の大規模社会シミュレーションの動作を実証したこと
+     \end{enumerate}
+
+    %[論文構成]
+    本論文の構成は次に示す通りである．まず，2章で既存の交通流シミュレータや分散シミュレーション技術，クラウドコンピューティング技術に関する関連研究を紹介し，本論文で扱う課題を明確化する．3章では，クラウドサービスとの親和性を持つ社会シミュレーション基盤のアーキテクチャについて説明する．4章で本シミュレーション基盤によるクラウド上での動作実証について述べ，5章でまとめと今後の課題について述べる．
+
+    \section{関連研究}% 0.5p
+    % 関連研究：ここまで研究されていて，ここが未解決である．
+    % ここまで研究されている：
+    % 未解決点，複数の計算資源を連携するには，OSやネットワーク，リソース容量など，計算資源に合わせたアプリケーションの配置や複雑な設定が必要
+
+
+    % 分散シミュレーション基盤に関する研究
+
+    % X10では大規模なシミュレーションに成功した
+    % HLAは分散シミュレーションのシミュレーション連携において貢献したが，大規模化に関しては焦点を当てていない．
+
+    % クラウドでの研究
+    % クラウド分野での研究により，KubernetesとDocker
+    % 複数の計算資源を用いたクラウドシステムが必要になる．
+    % CloudMAS クラウドのリソース管理を行うツールを開発した
+    % しかしながら，リソース管理に加えてOSやネットワークなど計算資源の設定が必ず必要になる．私たちはユーザにできる限りそのような裏側を気にしなくて良い仕組みを持たせることを目指している．
+    %
+
+    % 既存のシミュレータに関して：SUMO, Carla
+    % エージェントの数等に制限があったり，単一のコンピュータ上で実行をおこなう
+    MASを用いた既存の交通流シミュレータとして，高度交通システム(ITS)の分野でよく用いられるSUMO (Simulation of Urban MObility) \cite{Behrisch}が挙げられる．SUMOは大規模な道路交通を制御するために開発されたオープンソースの交通流シミュレータである．他にもCarla \cite{Dosovitskiy}に代表される自動運転システムを交えた交通流シミュレータも多く存在している\cite{Aoki,Bhat}．しかしながら，これらのシミュレータにはシミュレーションエリアの制限やエージェント数の制限が存在し，大規模なシミュレーションを実行するのは容易ではない．
+
+    % 分散シミュレーション基盤の研究
+    MASの大規模化に向けた分散シミュレーション基盤に関する研究は1990年代頃から行われてきた．
+    % 代表的なものにHLAがあるが，大規模化を考慮しているものではない．クラウド上での実行には手間がかかる
+    分散シミュレーション基盤を構築する規約としてHLA(High Lebel Architecture)\cite{Muhammad}が挙げられる．HLAは1990年代に米国防省によって提唱された，シミュレータ間の情報共有を目的とした標準規格であり，Run Time Interfaceという実行基盤を連携することで，複数のシミュレータを用いた分散シミュレーションを可能にする．しかしながら，HLAは異種シミュレータの連携に焦点を当てているものの，シミュレーションの大規模化に関しては焦点を当てていない．
+    % 分散シミュレーション X10言語
+    また，鈴村らは並列分散プログラミング言語X10を用いた大規模交通流シミュレーション「XAXIS」を開発し，スーパーコンピューターTSUBAME2.0上で1千規模級の大規模交通シミュレーションの高速な実行を実現した\cite{Suzumura}．
+
+    %[MASシミュレーションのクラウド環境での実行ではいくつか研究がある]
+    また，2010年代のコンテナ型仮想化技術の急速な進化により，
+    %DockerやKubernetesといったクラウドコンピューティングシステムが開発された．これにより，
+    計算リソースを柔軟に適用できるクラウド環境でMASを実行する研究が行われるようになった．
+    % Cloud Computing and Software Agents: Towards Cloud Intelligent Services
+    % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.229.71&rep=rep1&type=pdf
+    % クラウドコンピューティングとエージェントシミュレーションの関連性についてのべた．
+    実際に，Tariaは文献\cite{Talia}において，クラウドコンピューティングのモデルとアーキテクチャ，並列および分散アプリケーションでのそれらの使用について説明し，クラウドコンピューティングとマルチエージェントシステムには類似点や共通の課題が多く非常に親和性があると述べている．
+    % Cloud-MAS
+    また，Ralhaらはクラウドコンピューティングプラットフォーム上でリソース管理を行う「MAS-Cloud」というツールを開発・評価した\cite{Ralha}．このツールはリアルタイムアプリケーションにおけるリソース管理であり，社会シミュレーションに関する設計までは考慮していない．
+
+    %[しかしながら，これらは〜をしており，~という課題がある．本研究ではここが違う]
+    このように，分散シミュレーションやクラウド上の社会シミュレーションに関する研究は行われているものの，複数の計算資源上での社会シミュレーションには，異なる実行環境での動作やネットワーク設定，リソース管理など，複雑な設定が必要となり実行コストが高いという問題がある．そのため，既存の社会シミュレーション基盤の多くは誰もが容易に利用できる環境にはなっていない．
+    % 目的
+    本研究では，大規模性能やシミュレーション効率といった機能性だけでなく，Kubernetes / Dockerと分散システムSynerexを用いて，利用容易さやクラウドへの親和性など実用性を兼ね備えた社会シミュレーション基盤の設計と構築を行う．
+
+    \section{大規模社会シミュレーション基盤の設計}% 2p
+    %[大規模社会シミュレーションの実現として「クラウド上でのリソース管理」と「利用しやすさ」，「分散シミュレーション設計」が必要である．]
+
+    %我々の提案する大規模社会シミュレーション基盤の特徴として以下の三点が挙げられる．
+    %\begin{enumerate}
+    %    \item 時空間オブジェクトモデルによる分散シミュレーション設計
+    %    \item Kubernetes / DockerとSynerexによるクラウド上でのリソース配置と動的なリソース分配
+    %    \item クラウドサービス上での本システムの利用しやすさ
+    %\end{enumerate}
+
+    %% シミュレーション設計
+    % Synerexの概要
+    % 時空間オブジェクトモデルとマスターワーカーによるシミュレーション構成
+    % 重複エリアによる計算量，通信量の削減
+
+    %% リソース管理
+    % Synerexによるアプリケーション内のリソース管理
+    % Kubernetes / Dockerによるアプリケーション外のリソース管理
+
+    %% 利用容易さ
+    % 自動生成
+    % オープンソース
+
+    社会シミュレーションの大規模化を実現するためには，シミュレーション自体の分散システムの他に，柔軟な計算リソースの管理と，環境依存の少ないクラウドとの親和性が必要不可欠である．我々はさらに利用者がリソースや計算資源を考えることなく利用できることが理想であると考える．そのため，利用障壁を下げることも重要な要件である．
+    初めに，本シミュレーション基盤が使用している分散システムSynerexの概要を述べる．次に，大規模化におけるシミュレーション設計とクラウド上でのリソース管理におけるアーキテクチャを述べ，さらに利用容易さに関する設計指針について説明する．
+
+    \subsection{需給情報交換システムSynerexの概要}
+    %[synerexは需給交換システム]
+    %[特徴：]
+    Synerex\footnote{GitHub 「Synerex Project」. https://github.com/synerex.}\cite{Kawaguchi}は社会のサービス提供者と利用者間における需給の効率的な交換を可能にする需給交換基盤である．Synerexの概要と利用例を図1に示す．Synerexはデータ交換基盤となるSynerex Serverとデータを交換する主体となるプロバイダによって構成される．プロバイダは利用するアプリケーションによって自由にカスタマイズできる．例えば，サービス提供者プロバイダやサービス利用者プロバイダ，データ提供プロバイダなど，利用したい目的に合わせた開発が可能である．
+
+    %[独自のプロトコルは効率的な需給交換に適しており，リソース管理で使用している．]
+    Synerex Serverは各プロバイダに対して需給交換に適した独自のAPIを提供する．APIには「NotifyDemand」，「ProposeSupply」，「SelectSupply」，「Confirm」の4種類が存在し，それぞれ需要の通知，供給の提案，供給の選択，確認という需給において必要な機能を提供している．また，内部システムには，Googleによって開発されているgRPCとGo言語を用いている．gRPCのデータ内容の記述による一貫性のあるAPI定義と，Go言語が有する並列実行によるリアルタイムな通信により効率的な需給交換を実現している．
+
+    %[Synerex自体を分散可能なため，分散シミュレーションと相性が良い]
+    加えて，SynerexはSynerex Server自体を分散可能な柔軟性の高い分散システムである．図1のようにゲートウェイとなるプロバイダの接続により複数のSynerex Serverを協調できる．これにより，データ交換基盤に集中しやすい負荷の分散が可能となる．これらの特徴はクラウドを利用した分散シミュレーションとの相性が良いため，本シミュレーション基盤では複数資源上での連携に加えて，動的なリソース管理に利用している．
+
+
+    % Synerexの図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/synerex3.eps}
+            \label{fig:overall_structure}
+        \end{center}
+        \caption{Synerexの概要と利用例}
+    \end{figure}
+
+    \subsection{MasterとExecutorによるシミュレーション構成}
+    %[本シミュレーション基盤の分散シミュレーションを前提としており，全体構成は図のようになっている．マスターレイヤ，ワーカーレイヤに分離しており，ワーカーが各サーバ上で動作，シミュレーション実行を行う．マスターはワーカー管理，時刻同期を行う．]
+
+    図2に本シミュレーション基盤の全体構成を示す．本シミュレーション基盤はMasterレイヤとExecutionレイヤという二つのレイヤで役割を分けている．Executionレイヤには，それぞれの計算資源上に分散されたExecutorが存在する．各Executorは担当するエリアを保持しており，そのエリアにおけるエージェントの計算や他Executorとのエージェント共有など，実際のシミュレーション計算に関わる役割を担う．Masterレイヤには，時刻同期やシナリオ設定，Executor管理など，シミュレーション全体の一貫性を保つ役割を有するMasterが存在する．
+    % [Masterにはエージェント情報はこない]
+    また，本シミュレーション基盤では，各Executor間でエージェント共有が行われるものの，Masterには通信負荷の大きいエージェント情報は渡さないようにすることで，Masterへの負荷の集中を抑制している．
+
+    % 全体構成の図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/structure3.eps}
+            \label{fig:overall_structure}
+        \end{center}
+        \caption{全体構成図}
+    \end{figure}
+
+
+    \subsection{空間分割による計算量の分散}
+    MASでは個々のエージェントを全て計算するため，シミュレーションが大規模になるほど計算量が増加する．そのため，大規模なシミュレーションはリソースの限られた単一のコンピュータ上での実行が難しくなる．本シミュレーション基盤は複数の計算資源上で一貫性を保ちつつ動作を行う分散シミュレーションを前提としている．
+
+    本シミュレーション基盤では，シミュレーションエリアの空間分割を行う．図3のようにエリアやエージェント毎に空間を分割し，各オブジェクトが通信を行いながら協調することで，シミュレーション計算の並列実行による高速化を試みている．
+
+    % [通信メッシュを防ぐため，synerexを用いている．]
+    また，個々のオブジェクトを独自に通信させると，通信がメッシュ構造になり複雑になる．そのため，通信による情報交換にはSynerexを用いている．図4に一つの空間におけるExecutorの概要図を示す．Executor内には，車両のシミュレーションを実行する交通流シミュレータプロバイダや，歩行者のシミュレーションを実行する人流シミュレータプロバイダなどシミュレータ毎のプロバイダが存在する．管理プロバイダは時刻同期やシミュレーションのサイクル促進などExecutor内の管理を行う．さらに，ゲートウェイプロバイダによって，隣接しているエリアとの情報交換を行い協調する．
+
+    % オブジェクトモデルの概要図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/object-model.eps}
+            \label{fig:object_model}
+        \end{center}
+        \caption{シミュレーションエリアの空間分割}
+    \end{figure}
+
+    % Executorの内部図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/executor2.eps}
+            \label{fig:overall_structure}
+        \end{center}
+        \caption{Executorの概要図}
+    \end{figure}
+
+
+
+
+    \subsection{重複エリアによる通信量の抑制と一貫性の保持}
+    %[重複エリアにより，通信量を削減]
+
+    シミュレーションエリアの空間分割は計算量を分散できるという利点がある一方，隣接エリアのエージェントとの相互作用を考慮するため，エージェント情報の取得による通信が発生する．その際の通信数や通信量を可能な限り削減するため，本設計では重複エリアという概念を用いている．重複エリアとは，図5のように隣接するエリア境界でのエージェントの相互作用を考慮するために用いられる領域であり，重複エリアにいるエージェントは隣接する両エリアで保持される．
+
+    % 重複エリアの概要図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/dup-area2.eps}
+        \end{center}
+        \caption{重複エリアの概要図}
+        \label{dummy}
+    \end{figure}
+
+    % [時刻同期のフロー]
+    図6に，シミュレーションの1サイクル実行時の通信フローを示す．各シミュレータプロバイダは管理プロバイダからサイクル実行命令を受けた時に以下のような順番でサイクルを進める．
+
+    \begin{enumerate}
+        \item 管理プロバイダからサイクル実行命令を受け取る
+        \item 同じエリアにいる異種エージェントプロバイダからエージェント情報を取得する
+        \item 取得した同じエリアのエージェント情報を用いてシミュレーションを1サイクル実行する
+        \item 隣接しているエリアの同じ種類のエージェントプロバイダから重複エリアに存在するエージェント情報を取得する
+        \item 取得した隣接エージェント情報を用いて重複エリアを更新する
+     \end{enumerate}
+
+
+     % 最初に隣接エージェントを取得しなくてもよくなる
+
+
+     % ローカライズされる
+     各エリアは同じエリアにいる異種エージェントと隣接したエリアにいる同種のエージェントの交換のみを行う．そのため一つのExecutorの通信数はサイクルによってほとんど変わらない．また，通信量は重複エリアを含めた自エリアにいるエージェント数のみに影響を受けるが，自エリアの外側にいるエージェントからは影響を受けない．このような仕組みによって通信のローカリティを保っている．
+
+
+    % 時刻同期フローの図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/cycleflow2.eps}
+        \end{center}
+        \caption{時刻同期フロー}
+        \label{dummy}
+    \end{figure}
+
+    %[シミュレーションのサイクルとフロー]
+    \subsection{シミュレーション実行に関わる通信フロー}
+    % [参加登録]
+    シミュレーション実行やエリアの拡張には，Masterレイヤと必要なエリアに応じたExecutorを起動する必要がある．ここでエリアの拡張を容易にするため，ExecutorによるMasterへの参加登録の仕組みを用いている．図7は，エリア拡張時に2つのExecutorがMasterへ参加登録を行う通信フローである．まず、Executor1が起動時にMasterに対して参加登録申請を行う．それに対してMasterが登録を行い完了通知を返す．さらに新しいExecutor2が起動した場合，Masterは登録後全てのExecutorに参加者更新命令を行う．このような通信フローにより，ExecutorとMasterは常に新しい参加者を共有できるため，シミュレーション実行中であっても矛盾なくエリアの拡張が行える．
+
+    % フローの図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/registerflow3.eps}
+        \end{center}
+        \caption{参加登録フロー}
+        \label{dummy}
+    \end{figure}
+
+
+
+
+    %% リソース管理
+    \subsection{Synerexを利用したリソース管理手法}
+    %[クラウド上での大規模分散シミュレーションの実行には，異なるリソースを持った計算資源を効率的かつ実行を妨げないように動的に変更する必要がある．Synerexの通信プロトコルはクラウド内の複数のコンピュータリソースの管理・分配に有用である．本シミュレーション基盤では，コンピュータ上のリソースの需給交換をSynerexのプロトコルであるNotifyDemand,ProposeSupply,SelectSupply,Confirmという四つのプロセスによって行っている．]
+
+    %[クラウド上での大規模分散シミュレーションの実行には，異なるリソースを持った計算資源を効率的かつ実行を妨げないように動的に変更する必要がある]
+    複数の計算資源上での分散シミュレーションでは，エリア内に存在するエージェントの密度により計算量が動的に変化する．そのため，異なるリソースを持った計算資源を動的に分配するリソース管理が重要である．
+    %[Synerexは独自のプロトコルを持っており，効率の良いリソース管理が可能である．内容]
+    本シミュレーション基盤では，Synerexが有する独自の通信プロトコル「NotifyDemand」，「ProposeSupply」，「SelectSupply」，「Confirm」の4種類のAPIを用いて，リソース管理を行っている．図8にリソース管理による通信フローを示す．NotifyDemandは需要の通知を行うプロトコルであり，Executor内のリソースが足りない場合に周辺エリアのExecutorのリソースを求めることに用いている．ProposeSupplyは需要に対して供給を行うためのプロトコルであり，NotifyDemandを受けたExecutorが自身のリソースが存在する場合に供給可能の通知を行うために使用する．SelectSupplyは受けた供給に対して利用するものを選択し通知するプロトコルで，利用するリソースとその容量の選択と供給先への通知に使われる．Confirmは供給先の確認を通知するプロトコルで，供給元から需要先へ必要なリソースの提供を行う．また，このフローで行われるリソースの提供は，負荷の大きいExecutorのエリアの一部を供給元のExecutorに分配し，エリアの大きさを変動させることによって行う．このような一定のフローを各Executorで行うことにより，柔軟性を持った動的なリソース管理が可能となる．
+
+
+    % フローの図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/resource.eps}
+        \end{center}
+        \caption{リソース管理フロー}
+        \label{dummy}
+    \end{figure}
+
+    % リソース管理手法について
+    \subsection{Kubernetes / Dockerによるリソース管理}
+    %[クラウドへの親和性を持たせるため，モダンなKubernetes / Dockerを利用している．Kubernetes / Dockerは現在分散コンピューティングにおいて非常に人気があり，Googleの提供するGKEやAmazonの提供するEKSなど様々なベンダーによって実行環境が提供されている．また，これらの利点はPodを複数の計算資源へ平等に分配し，Podの死活管理を行うことが可能な点である．さらに，利用者は設定ファイルさえ用意すれば，複数の計算資源へのネットワーク接続などを行うことなく単一のコンピュータのように実行できる．加えて，設定ファイルは本シミュレーション基盤によって自動的に生成することが可能なため，利用障壁を大きく下げることができる．]
+    %[複数の資源を用いて分散協調するのはネットワーク設定などが必要であり容易ではない]
+    従来の社会シミュレーションでは，複数の計算資源を用いて分散協調する場合，各計算資源を接続するネットワーク設定やOSに合わせたソフトウェアの起動，計算資源の規模調整など多くの課題があり，容易に利用できる環境ではなかった．
+    % [Kubernetes / Dockerというコンテナ仮想化技術がでてきた:Kubeのpod説明]
+    このような課題はクラウドコンピューティング分野でも共通の課題であり，これらを解決するためにDockerやKubernetesといったコンテナ仮想化技術，コンテナオーケストレーション技術が活用されている．
+
+    Dockerとは，サーバのカーネルを利用して実行環境を他のプロセスから隔離するコンテナ型のアプリケーション実行環境である．Dockerを利用することで，物理マシン上の環境変化による問題を減らすことが可能になる．Kubernetesはコンテナ化されたアプリケーションをクラスタ上でデプロイやスケーリングを行うシステムである．KubernetesではPodと呼ばれる仮想的なサーバを作成し，設定ファイルにしたがって複数の物理マシン上にリソースを最適化するように設置する．また，高度な可用性を備えており，Podが停止した場合に自動で再起動するなどPodの死活監視も可能である．
+
+    % [Kubeはベンダーでも提供されている点]
+    このようにDocker/Kubernetesは高可用性や拡張性，保守性を有しているため，多くのサービスのインフラ環境として活用されている．また，AmazonやGoogleなど大手ベンダーにもEKSやGKEといったクラウドサービスとしてサポートされており，コンテナ仮想化およびオーケストレーションツールとしてはデファクトスタンダードになっている．
+
+    % [Kubeによるリソース管理]
+    % [TODO: Kubeの垂直オートスケーリング，]
+    本シミュレーション基盤では，Docker / Kubernetesを活用し，図9のようにMaster Podと複数のExecutor PodをKubernetesクラスタ上で分散している．また，3•6節で述べた，Synerexを用いたアプリケーション内でのリソース管理の他に，Kubernetes独自のオートスケーリング機能を用いたリソース管理も行っている．KubernetesではPod自体のリソースを増加させる垂直オートスケーリングと，Podのリソース利用率が設定した閾値を超えた場合にPodを増やす水平オートスケーリング機能があり，これらの機能を活用してアプリケーション外からの動的なリソース管理を行っている．
+
+
+
+    % Kubernetes Podの図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/kube.eps}
+        \end{center}
+        \caption{Kubernetes Podの図}
+        \label{dummy}
+    \end{figure}
+
+    %\subsection{設定ファイルの自動生成によるユーザビリティの向上}
+
+
+    \subsection{本シミュレーション基盤の利用}% 0.5p
+    %[本シミュレーション基盤はオープンソースとしてGitHub上で公開しながら日々アップデートをしている．現在，リソースの動的管理以外の機能は実装済みであり，簡単なシミュレーションをクラウド上で大規模に動かすことに成功している．リソースの動的割当は今後実装出来次第，機能追加する]
+
+    % [リソースの動的管理以外の昨日]
+    本シミュレーション基盤はオープンソースとしてGitHub上で公開しながら日々アップデートをしている \footnote{GitHub 「Flow」. https://github.com/RuiHirano/flow\_beta.}．現在，MasterとExecutorとの連携や重複エリアの実装，Kubernetesの設定ファイル自動生成機能など基本的な要件は実装済みであり，簡単なシミュレーションをクラウド上で大規模に動かすことに成功している．今後はリソースを動的に管理する機能の実装や，ユーザの利用しやすいシナリオ構築機能などを実装し追加を行う予定である．
+
+    以下に，本シミュレーション基盤の利用手順を示す．
+    \begin{enumerate}
+        \item 本シミュレーション基盤をローカルにインストールする
+        \item 使用するシミュレータのプラグインを作成する
+        \item シミュレーションのシナリオ設定を記述する
+        \item Kubernetes用の設定ファイルを生成する
+        \item Kubernetes対応のクラウド上で設定ファイルからアプリケーションを起動する
+     \end{enumerate}
+
+     %[シミュレータプラグインの作成]
+     本シミュレーション基盤では，使用するシミュレータに応じて独自のプラグインを作成する必要がある．プラグインの作成にはある程度時間がかかるが，将来的には開発するためのテンプレートの提供や，一度作られたプラグインをその他の利用者が共有できるようなプラットフォームの提供による対応を考えている．
+
+    % [設定ファイルが簡単な点]
+    また，Kubernetesの設定ファイルは，利用者が自分で作成する必要はなく，シミュレーションの規模やエージェント数を記述したシナリオ設定に応じて自動で生成される．これにより，利用者は複数の計算資源を意識することなく，クラウド上でアプリケーションを起動するだけで，容易に大規模な社会シミュレーションを実行できる．
+
+
+
+    \section{大規模感染シミュレーションの実装とクラウド上での検証} % 1p
+    \subsection{感染シミュレーションの実装}
+    本シミュレーション基盤上に感染シミュレーションを実装するにあたり，一般的な感染モデルであるSIRモデル\cite{Kermack}を利用し，感染シミュレータを作成した．SIRモデルは感染症の流行過程を表したモデル方程式である．頭文字がそれぞれ感受性保持者(Susceptible)，感染者(Infected)，免疫保持者(Recovered)を表しており，感受性保持者が感染者に接触するとある割合で感染し，その後一定期間経過すると回復するという流れとなる．
+
+    また，エージェントは人のみとし，行動アルゴリズムとしてRVO2\cite{Berg}を利用した．RVO2はVelocity Obstaclesという人同士が接触しない範囲を定義することで，人の回避行動を表現するアルゴリズムである．さらに，シミュレーション結果の可視化には「Harmoware-VIS」と呼ばれるDeck.glベースの可視化ライブラリ\cite{Hiroi}を利用した．図10にHarmowareVISを用いて道路ネットワーク上にエージェントの一部を可視化したものを示す．緑色のエージェントが感受性保持者を示しており，赤色のエージェントが感染者を示している．
+    シミュレーションエリアは愛知県名古屋市を想定しており，国土交通省のG空間情報センター\footnote{G空間情報センター 「歩行空間ネットワークデータ等」. https://www.geospatial.jp/ckan/dataset/0401.}がオープンデータとして提供している名古屋市歩行者ネットワーク情報を利用して，そのネットワーク上に歩行者を設置した．
+
+    % 可視化の図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/vis.eps}
+        \end{center}
+        \caption{可視化の図}
+        \label{dummy}
+    \end{figure}
+
+
+    \subsection{検証環境}
+    %[本研究ではAmazonのEKSを用いて実験を行った．使用する計算資源は~で~だった]
+    % [実験目的]
+    本シミュレーション基盤を用いてクラウド上における社会シミュレーションの動作実証を行った．本実験の目的は現実の状況を想定したモデルでクラウド上での大規模な社会シミュレーションが可能かどうかを検証すること，サーバー台数の増加によるシミュレーション実行時間の変化を明らかにすることである．
+
+    % [実験方法]
+    本実験で使用したクラウドサービスは，Googleの提供するGKE(Googke Kubernetes Engine)である．今回の実験では，表1のような性能を持つ仮想サーバを複数台使用した．本実験では名古屋市の人口およそ230万人の約5\%にあたる10万人のエージェントの1時間の動きを想定し，感染流行過程をシミュレーションした．今回の実験では，感染者を全体の25\%とし，感染者の半径2m以内にいると20\%の感染確率で感染し，1日後に回復するというパラメーターを設定した．また，サーバー台数を増やし，感染拡大シミュレーションの実行にかかる時間を計測した．
+
+    \begin{table}[t]
+        \begin{center}
+          \caption{使用した仮想サーバの性能}
+          \begin{tabular}{|l|l|} \hline
+            使用した機材等 & 詳細 \\\hline
+            マシンタイプ & N1-Standard-1 \\
+            CPU性能 & Intel Xeon Silver 4214，2.20GHz \\
+            使用CPUコア数 & 1Core \\
+            使用メモリ & 2GB \\ \hline
+         \end{tabular}
+          \label{tab:environment}
+        \end{center}
+      \end{table}
+
+    \subsection{検証結果}
+    %[検証結果を示す．]
+    本実験のシミュレーション結果を図11に示す．SIRモデルの回復にかかる時間を1日と設定したため，回復者数は常に0となっている．感染者数は，10万人のうち25\%を占める25000人が感染から始まり，約1900秒経過した時点で感染者が感受性保持者を上回った．それ以降，感染者数が増加する速度は弱まるも単調増加し，1時間後には約56000人まで増加した．
+
+    次に，サーバー台数とシミュレーションの実行時間の関係を表2と図12に示す．サーバー台数が1台の時は計算時間が3520msで最大だが，エージェントの交換が起きないため通信時間は14msと最小となり，シミュレーション実行時間は3.56時間となった．サーバー4台の時は，計算時間は約2/5程度まで削減できているが，エージェントの通信が発生するため通信時間が2682msと最大になり，シミュレーション実行時間は3.78時間と1台と比べて増加した．それ以降はサーバー台数が増加するにつれて計算時間と通信時間は減少し，サーバー台数25台使用時ではシミュレーションの実行時間は0.67時間となり，1台での実行時間の約1/5程度に抑えることができた．
+
+
+
+
+    % 検証結果の図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/sim-result5.eps}
+        \end{center}
+        \caption{シミュレーション結果}
+        \label{dummy}
+    \end{figure}
+
+    \begin{table}[t]
+        \begin{center}
+          \caption{サーバー台数と実行時間の関係}
+          \begin{tabular}{|l|l|l|l|l|l|} \hline
+            サーバー台数 & 1 & 4& 9& 16& 25\\\hline
+            計算時間(ms) & 3520& 1374& 382& 200& 143\\
+            通信時間(ms) &  14& 2682& 1217& 908& 513\\
+            1周期時間(ms) & 3556& 3785& 1613& 1237& 681\\
+            実行時間(h) & 3.56 & 3.78& 1.61& 1.23& 0.67\\ \hline
+         \end{tabular}
+          \label{tab:environment}
+        \end{center}
+      \end{table}
+
+    % 検証結果の図
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=80mm]{../images/time-result.eps}
+        \end{center}
+        \caption{サーバー台数と実行時間の関係}
+        \label{dummy}
+    \end{figure}
+
+    \subsection{考察}
+    %[本検証により，クラウド上での大規模な動作実験を行うことができた．課題は~である．]
+    本実験により，GCP上での10万人規模の感染シミュレーションが可能であることを実証できた．GCP上での実行ファイルは自動で生成されるため，実行環境の構築は1時間もかからず行えた．
+
+    またサーバー台数と実行時間の関係から，サーバーを複数台使用する場合，台数が増えるほど計算時間，通信時間ともに減少している．これは，エリアを分割するほど一つのエリアが担当するエージェント数が減少し，計算量が減少すると同時に隣接エリアとの通信量も減少していくためであると考えられる．これにより，空間分割とサーバー分散による通信のローカリティを担保できていることがわかった．
+
+    %[課題：台数効果]
+    一方で，実行時間の減少幅は台数が増えるほど小さくなっており，利用台数を増加させても実行時間の変化が小さく十分な効果が得られない可能性があることがわかった．今回の実験では，計算時間と通信時間の減少幅はサーバー台数の増加に伴い小さくなっている．そのため，シミュレーション実行時間と台数拡張に伴うコストを見極め，利用者の費用対効果も考慮してサーバー台数を拡張する必要があるだろう．
+
+    %[課題：人口分布の偏り]
+    また，人口分布の偏りによる影響への対応も今後の課題である．今回の実験ではシミュレーションエリアを均等に分割したため，エージェントの多いエリアと少ないエリアが存在していた．Masterの時刻同期では，一番遅いExecutorに合わせるため，このようなエージェントの偏りは実行時間に大きな影響を及ぼす．この問題には，各Executorが担当するエリアをエージェント数によって動的に変更し，エリア毎のエージェント数を平滑化すれば対応できると考えている．
+
+    \section{まとめと今後の課題}% 0.5p
+    %[本論文では，クラウド親和性を有する大規模な社会シミュレーション基盤の設計と構築，そしてクラウド上での動作検証を行った．本シミュレーション基盤は]
+    本論文では，クラウド親和性を有する大規模な社会シミュレーション基盤の設計を提案した．シミュレーションエリアの空間分割と重複エリアによる分散シミュレーションに関する設計と，Kubernetes / DockerとSynerexによるクラウド実行を容易にするための設計について考案し，実装を行った．
+    また，GoogleのクラウドサービスであるGKE上で本シミュレーション基盤の動作実証を行った．結果として，10万規模の感染シミュレーションの実行が可能であり，サーバー台数を増やすことで実行時間を短縮できることを示した．
+
+    %[今後の課題：動的なリソースとその実験，性能評価]
+    今後の取り組みとしては次の2つが挙げられる．1つ目は，リソースの動的な管理機能を実装し，機能追加を行うことである．現状，自動で生成されたKubernetes設定ファイルを利用して，クラスタ上での最適な初期配置を自動化することには成功している．しかしながら，実行途中にエージェントが増えたり，エリアが拡大するなどのアプリケーション内部で起こる動的なリソース増加には対応できていないため，今後の課題となる．2つ目は，クラウドサービス上での性能評価を行うことである．これまでの取り組みで，クラウド上で10万規模のシミュレーションの動作実証と実行時間の変化を検証できた．一方で実行効率や台数効果などの性能についてはまだ評価できていない．今後追加で性能評価を行い，本シミュレーション基盤の有効性や実用性を示していく必要がある．
+
+    \begin{acknowledgment}
+        本研究は，JST CREST JPMJCR1882，NICT委託研究，総務省SCOPE（受付番号191506001）委託，JST OPERA（JPMJOP1612）の支援を受けたものです.
+    \end{acknowledgment}
+
+    %\begin{thebibliography}{番号部分の幅}
+    %    % Kubernetes
+    %    \bibitem[Bernstein 14]{Bernstein14} David Bernstein. Containers and Cloud: From LXC to Docker to Kubernetes. IEEE Cloud Computing, Volume: 1, Issue: 3, Sept. 2014.
+    %    \bibitem[鈴村 12]{Suzumura12} Toyotaro Suzumura Hiroki Kanezashi. Highly Scalable X10-Based Agent Simulation Platform and Its Application to Large-Scale Traffic Simulation. IEEE/ACM 16th International Symposium on Distributed Simulation and Real Time Applications, pp 243–250, Oct 2012.
+    %    \bibitem[Talia 11]{Talia11} Domenico Talia. Cloud Computing and Software Agents: Towards Cloud Intelligent Services. Oct 2012.
+    %    \bibitem[Muhammad 13]{Muhammad13} Muhammad Usman Awais and Peter Palensky et al. The
+    %    High Level Architecture RTI as a master to the Func-tional Mock-up Interface components. InternationalConference on Computing, Networking and Communi-cations, Workshops Cyber Physical System, 2013.
+    %    % Multiagent system for dy
+    %    \bibitem[Ralha 19]{Ralha19} Célia Ghedini Ralha, Aldo H.D. Mendes, Luiz A.Laranjeira, Aletéia P.F.Araújo, Alba C.M.A. Melo. Multiagent system for dynamic resource provisioning in cloud computing platforms. Future Generation Computer Systems, Volume 94, pp 80-96, May 2019.
+    %   \bibitem[河口 20]{Kawaguchi20} 河口信夫, 米澤拓郎, 廣井慧. Synerex: 超スマート社会を支える需給交換プラットフォームの設計コンセプトと機能. pp. 1–6, 03 2020.
+    %    % SUMO
+    %   \bibitem[Behrisch 11]{Behrisch11} Michael Behrisch, Laura Bieker, Jakob Erdmann, Daniel Krajzewicz. SUMO – Simulation of Urban MObility. SIMUL 2011, The Third International Conference on Advances in System Simulation, pp. 63-68
+    %    % Tools and Methodologies
+    %   \bibitem[Bhat 18]{Bhat18} Anand Bhat, Shunsuke Aoki, Ragunathan Rajkumar. Tools and Methodologies forAutonomous Driving Systems. Proceedings of the IEEE Vol. 106, No. 9, September 2018.
+    %   % Multiagent Simulation of Real-Time
+    %    \bibitem[Zargayouna 20]{Zargayouna20} Mahdi Zargayouna, Amine Othman, Besma Zeddini and Gérard Scemama. Multiagent Simulation of Real-Time Passenger Information on Transit Networks. IEEE Intelligent Transportation Systems Magazine, Summer 2020.
+    %    % Tools and Methodologies
+    %    \bibitem[Aoki 20]{Aoki20} Shunsuke Aoki, Lung En Jan, Junfeng Zhao, Anand Bhat Ragunathan (Raj) Rajkumar, Chen-Fang Chang. Co-simulation  Platform  for  DevelopingInfoRich  Energy-Efficient  Connected  and  Automated  Vehicles. 2020 IEEE Intelligent Vehicles Symposium (IV), October 20-23, 2020.
+    %    % HarmowareVis
+    %    \bibitem[Hiroi 20]{Hiroi20} Kei Hiroi, Takehiro Arai, Nobuo Kawaguchi. Simulation for Passengers Convenience Using Actual Bus Traffic Data. Intelligent Transport Systems for Everyone’s Mobility. Springer, Singapore. 2019.
+    %    % RVO2
+    %    \bibitem[Berg 11]{Berg11} Jur van den Berg, Stephen J. Guy, Ming C. Lin, and Dinesh Manocha, Reciprocal n-body collision avoidance, in Cédric Pradalier, Roland Siegwart, and Gerhard Hirzinger (eds.), Robotics Research: The 14th International Symposium ISRR, Springer Tracts in Advanced Robotics, vol. 70, Springer-Verlag, Berlin/Heidelberg, Germany, May 7, 2011, pp. 3-19.
+    %    % SIR
+    %    \bibitem[Kermack 27]{Kermack27} Kermack, William Ogilvy, A. G. McKendrick, and Gilbert Thomas Walker, “A contribution to the mathematical theory of epidemics,” Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character, 1927, 115(772), 700–721.
+    %    % Carla
+    %    \bibitem[Dosovitskiy 27]{Dosovitskiy27} Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, Vladlen Koltun. CARLA: An Open Urban Driving Simulator. 1st Conference on Robot Learning (CoRL 2017), Mountain View, United States, 2017.
+    %\end{thebibliography}
+
+    \bibliography{ref} % 1p
+    \bibliographystyle{jsai}
+
+
+
+    % $BCx<T$N@+$HL>$N4V$OH>3Q%9%Z!<%9$G6h@Z$k(B
+    % $BN,Nr$O(B200$B;z0JFb(B
+    \begin{biography}
+    \profile{s}{平野 流}{2019年名古屋大学工学部電気電子・情報工学科卒業を経て，同大学博士前期課程学生．主にエージェントシミュレーション，サイバーフィジカルシステムに関する研究に従事}
+    \profile{m}{青木 俊介}{2020年カーネギーメロン大学 計算機工学科(Electrical and Computer Engi-neering) PhD取得．船井情報科学振興財団奨学生．2020年11月より名古屋大学未来社会創造機構 特任助教．自動運転システム，サイバーフィジカルシステムに関する研究に従事．}
+    \profile{m}{米澤 拓郎}{2010年慶應義塾大学大学院政策・メディア研究科後期課程博士号取得後，同大学院特任助教，特任講師，特任准教授を経て，2019年より名古屋大学大学院工学研究科准教授．主に，ユビキタスコンピューティングシステム，ヒューマンコンピュータインタラクション，センサネットワーク等の研究に従事．ACM，各会員．}
+    \profile{m}{河口 信夫}{1990年名古屋大学工学部電気電子工学科卒業．1995年同大学大学院工学研究科情報工学専攻博士課程満了．同年同大学工学部助手，同大学講師，准教授を経て，2009年より同大学大学院研究科教授．NPO位置推定サービス研究機構Lisra代表理事．モバイルコミュニケーション，ユビキタスコンピューティング，行動センシングの研究に従事．博士（工学）．ACM，IEEE，人工知能学会，日本ソフトウェア科学会，電子情報通信学会，日本音響学会各会員．}
+    \end{biography}
+
+    \end{document}
+
+`*/
